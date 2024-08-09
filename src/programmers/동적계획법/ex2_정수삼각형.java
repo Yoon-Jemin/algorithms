@@ -1,6 +1,6 @@
 package programmers.동적계획법;
 
-public class 정수삼각형 {
+public class ex2_정수삼각형 {
 
     public static void main(String[] args) {
 

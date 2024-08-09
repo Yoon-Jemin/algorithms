@@ -2,7 +2,7 @@ package programmers.동적계획법;
 
 import java.util.*;
 
-public class N으로표현 {
+public class ex1_N으로표현 {
 
     public static void main(String[] args) {
         int N = 5;

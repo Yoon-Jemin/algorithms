@@ -1,6 +1,6 @@
 package programmers.동적계획법;
 
-public class 등굣길 {
+public class ex3_등굣길 {
 
     public static void main(String[] args) {
 
