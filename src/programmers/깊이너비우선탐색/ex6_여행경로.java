@@ -5,8 +5,23 @@ import java.util.*;
 public class ex6_여행경로 {
     public static void main(String[] args) {
 
+//        String[][] tickets = {
+//                {"ICN", "BOO"}, // 1
+//                {"ICN", "COO"}, // 5
+//                {"BOO", "DOO"}, // 2
+//                {"BOO", "ICN"}, // 4
+//                {"COO", "BOO"},
+//                {"COO", "DOO"}, // 6 (핵심)
+//                {"DOO", "BOO"}, // 3
+//                {"DOO", "COO"}
+//        };
+
         String[][] tickets = {
-                {"ICN", "BBB"}, {"BBB", "ICN"}, {"ICN", "AAA"}
+                {"ICN", "A"}, // 1
+                {"A", "B"},  // 2
+                {"A", "C"},  //
+                {"B", "D"},  // 3
+                {"C", "A"}
         };
 
         String[] result = solution(tickets);
@@ -14,54 +29,33 @@ public class ex6_여행경로 {
         for(String s : result){
             System.out.println(s);
         }
-
     }
 
+    static boolean[] visit;
+    static ArrayList<String> list;
     public static String[] solution(String[][] tickets) {
-        ArrayList<String> result = new ArrayList<>();
+        visit = new boolean[tickets.length];
+        list = new ArrayList<>();
+        DFS(0, "ICN", "ICN", tickets);
+        Collections.sort(list);
+        String[] temp = list.get(0).split(" ");
+        return temp;
+    }
 
-        HashMap<String, Boolean[]> visitedMap = new HashMap<>();
-        HashMap<String, ArrayList<String>> pathMap = new HashMap<>();      // [출발: 도착리스트]
-
-        for(String[] ticket : tickets){
-            String departure = ticket[0];
-            String arrival = ticket[1];
-            ArrayList<String> arrivals = pathMap.getOrDefault(departure, new ArrayList<>());
-            arrivals.add(arrival);
-            pathMap.put(departure, arrivals);
-        }
-
-        for(String key : pathMap.keySet()){
-            Boolean[] visited = new Boolean[pathMap.get(key).size()];
-            Arrays.fill(visited, false);
-            visitedMap.put(key, visited);
-        }
-
-        for(ArrayList<String> arrivals : pathMap.values()){
-            Collections.sort(arrivals);
-        }
-
-        Queue<String> queue = new LinkedList<>();
-        queue.add("ICN");
-        result.add("ICN");
-
-        while (result.size() <= tickets.length){
-            String nowDeparture = queue.poll();
-
-            // 끊겼을 때 경우 대비
-
-
-            for(int i = 0; i < pathMap.get(nowArrival).size(); i++){
-                if(!visitedMap.get(nowArrival)[i]){
-                    queue.add(pathMap.get(nowArrival).get(i));
-                    result.add(pathMap.get(nowArrival).get(i));
-                    visitedMap.get(nowArrival)[i] = true;
-                    break;
+    private static void DFS(int cnt, String icn, String next, String[][] tickets) {
+        if(cnt == tickets.length){
+            list.add(next);
+        } else {
+            for (int i = 0; i < tickets.length; i++){
+                if(!visit[i] && tickets[i][0].equals(icn)){ // i번째 티켓의 출발지가 현재 도착지
+                    visit[i] = true;
+                    DFS(cnt+1, tickets[i][1], next+" "+tickets[i][1], tickets);
+                    visit[i] = false;
                 }
             }
         }
 
-        return result.toArray(new String[0]);
-
     }
+
+
 }
