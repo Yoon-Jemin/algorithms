@@ -4,11 +4,7 @@ public class 혼자서하는틱택토 {
 
     public static void main(String[] args) {
 
-        String[] board = {
-                "O.X",
-                ".O.",
-                "..X"
-        };
+        String[] board = {"O.X", ".O.", "..X"};
 //        String[] board = {"OOO", ".O.", "XXX"};
 //        String[] board = {"...", ".X.", "..."};
 //        String[] board = {"...", "...", "..."};
@@ -71,7 +67,7 @@ public class 혼자서하는틱택토 {
             answer = 0;
         }
         if(isWinner_O && !isWinner_X) {
-            if(count_O != count_X+1 && count_O != count_X + 1) answer = 0;
+            if(count_O != count_X + 1) answer = 0;
         }
         if(!isWinner_O && isWinner_X) {
             if(count_O != count_X) answer = 0;
