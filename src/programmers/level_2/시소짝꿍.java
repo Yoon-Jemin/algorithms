@@ -19,25 +19,27 @@ public class 시소짝꿍 {
     public static long solution(int[] weights) {
         long answer = 0;
 
-        Map<Integer, ArrayList<Integer>> map = new HashMap<>();
+        long[] cntWeight = new long[1001];
+        long[] mulWeight = new long[4001];
 
-        for(int i = 0; i < weights.length; i++) {
-            ArrayList<Integer> list = new ArrayList<>();
-            list.add(weights[i]*2);
-            list.add(weights[i]*3);
-            list.add(weights[i]*4);
-            map.put(i, list);
-        }
+        for(int i =0; i < weights.length; i++) {
+            long temp = cntWeight[weights[i]];
 
-        for(int i = 0; i < weights.length; i++) {
-            for(int j = i + 1; j < weights.length; j++) {
-                for(int k = 0; k < 3; k++){
-                    if(map.get(j).contains(map.get(i).get(k))) {
-                        answer++;
-                        break;
-                    }
-                }
+            if(temp > 0){
+                answer += temp;
+                answer += mulWeight[weights[i]*2] - temp;
+                answer += mulWeight[weights[i]*3] - temp;
+                answer += mulWeight[weights[i]*4] - temp;
+            } else {
+                answer += mulWeight[weights[i]*2];
+                answer += mulWeight[weights[i]*3];
+                answer += mulWeight[weights[i]*4];
             }
+
+            cntWeight[weights[i]]++;
+            mulWeight[weights[i]*2]++;
+            mulWeight[weights[i]*3]++;
+            mulWeight[weights[i]*4]++;
         }
 
         return answer;
