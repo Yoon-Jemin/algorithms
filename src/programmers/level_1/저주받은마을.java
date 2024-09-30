@@ -1,4 +1,4 @@
-package programmers.AI추천문제;
+package programmers.level_1;
 
 public class 저주받은마을 {
     public static void main(String[] args) {

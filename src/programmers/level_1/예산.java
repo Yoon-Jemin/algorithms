@@ -1,4 +1,4 @@
-package programmers.AI추천문제;
+package programmers.level_1;
 
 import java.util.Arrays;
 
