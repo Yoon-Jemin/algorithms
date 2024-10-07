@@ -2,7 +2,7 @@ package test;
 
 import java.util.*;
 
-public class CodingTest {
+public class CodingTest1 {
 
     // k: 300
     // limits:
