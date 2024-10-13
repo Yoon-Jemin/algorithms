@@ -40,7 +40,7 @@ public class 삼각달팽이 {
                     direction = "right";
                 }
             } else if (direction.equals("right")) {
-                if(location < numbers.get(level).length -1) {
+                if(location < numbers.get(level).length -1 && numbers.get(level)[location+1] == 0) {
                     location++;
                     direction = "right";
                 } else {
