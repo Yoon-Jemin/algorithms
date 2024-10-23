@@ -43,7 +43,7 @@ public class 길찾기게임 {
             nodes.add(new Node(nodeinfo[i][0], nodeinfo[i][1], i + 1));
         }
 
-        // depth 기준 오름차순 정렬
+        // depth 기준 내림차순 정렬
         Collections.sort(nodes, (o1, o2) -> o2.y - o1.y);
 
         Node root = nodes.get(0);
