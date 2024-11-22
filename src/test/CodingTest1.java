@@ -4,9 +4,6 @@ import java.util.*;
 
 public class CodingTest1 {
 
-    // k: 300
-    // limits:
-    //[[2,3,-1,-1,-1], [4,0,-1,-1,6], [5,0,0,0,0], [-1,0,0,0,0], [-1,-1,-1,-1,-1], [-1,-1,0,0,0]]
     public static void main(String[] args){
 
         int k = 300;
