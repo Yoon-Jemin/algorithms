@@ -3,7 +3,7 @@ package leetcode.hashtable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class intToRoman {
+public class IntToRoman {
 
     public static void main(String[] args) {
         System.out.println(intToRoman(3749));

@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class cloneGraph {
+public class CloneGraph {
 
     private Map<Node, Node> visited = new HashMap<>();
     public Node cloneGraph(Node node) {
