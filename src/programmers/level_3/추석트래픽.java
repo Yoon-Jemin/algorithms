@@ -8,29 +8,31 @@ import java.util.*;
 public class 추석트래픽 {
 
     public static void main(String[] args) {
+//        String[] lines = new String[] {
+//                "2016-09-15 20:59:57.421 0.351s",
+//                "2016-09-15 20:59:58.233 1.181s",
+//                "2016-09-15 20:59:58.299 0.8s",
+//                "2016-09-15 20:59:58.688 1.041s",
+//                "2016-09-15 20:59:59.591 1.412s",
+//                "2016-09-15 21:00:00.464 1.466s",
+//                "2016-09-15 21:00:00.741 1.581s",
+//                "2016-09-15 21:00:00.748 2.31s",
+//                "2016-09-15 21:00:00.966 0.381s",
+//                "2016-09-15 21:00:02.066 2.62s"
+//        };
+
         String[] lines = new String[] {
-                "2016-09-15 20:59:57.421 0.351s",
-                "2016-09-15 20:59:58.233 1.181s",
-                "2016-09-15 20:59:58.299 0.8s",
-                "2016-09-15 20:59:58.688 1.041s",
-                "2016-09-15 20:59:59.591 1.412s",
-                "2016-09-15 21:00:00.464 1.466s",
-                "2016-09-15 21:00:00.741 1.581s",
-                "2016-09-15 21:00:00.748 2.31s",
-                "2016-09-15 21:00:00.966 0.381s",
-                "2016-09-15 21:00:02.066 2.62s"
+                "2016-09-15 01:00:04.001 2.0s", "2016-09-15 01:00:07.000 2s"
         };
 
         System.out.println(solution(lines));
     }
 
-    public static class Response{
-        String date;
-        String startTime;
-        String endTime;
+    public static class Response {
+        long startTime; // 시작 시간 (밀리초)
+        long endTime;   // 종료 시간 (밀리초)
 
-        public Response(String date, String startTime, String endTime) {
-            this.date = date;
+        public Response(long startTime, long endTime) {
             this.startTime = startTime;
             this.endTime = endTime;
         }
@@ -38,75 +40,57 @@ public class 추석트래픽 {
 
     public static int solution(String[] lines) {
         List<Response> responses = new ArrayList<>();
+
+        // 로그 파싱
         for (String line : lines) {
             responses.add(parse(line));
         }
 
-        PriorityQueue<Integer> maxCount = new PriorityQueue<>(Comparator.reverseOrder());
+        int maxCount = 0;
 
-        for (int i = 0; i < responses.size(); i++) {
-            String startTime = responses.get(i).startTime;
+        // 각 요청의 시작과 끝 시점을 기준으로 1초 구간 처리량 계산
+        for (Response response : responses) {
+            maxCount = Math.max(maxCount, calculateThroughput(responses, response.startTime));
+            maxCount = Math.max(maxCount, calculateThroughput(responses, response.endTime));
+        }
 
-            int count = 0;
-            int startSecond = Integer.parseInt(startTime.substring(6, 8));
-            int currentTime = changeTimeToInteger(startTime);
+        return maxCount;
+    }
 
-            for (int j = 0; j < responses.size(); j++) {
-                int nextStartSecond = Integer.parseInt(responses.get(j).startTime.substring(6, 8));
-                int nextEndSecond = Integer.parseInt(responses.get(j).endTime.substring(6, 8));
-                int nextStartTimeToInt = changeTimeToInteger(responses.get(j).startTime);
-                int nextEndTimeToInt = changeTimeToInteger(responses.get(j).endTime);
+    private static int calculateThroughput(List<Response> responses, long startTime) {
+        long windowEnd = startTime + 999; // 1초 구간의 끝 (밀리초)
+        int count = 0;
 
-                if(nextStartTimeToInt <= currentTime && currentTime <= nextEndTimeToInt) {
-                    count++;
-                }
-            }
-
-            maxCount.add(count);
-
-            while ( startSecond == Integer.parseInt(responses.get(i).startTime.substring(6, 8))) {
-                i++;
-                if (i == responses.size()) break;
+        for (Response response : responses) {
+            // 요청이 구간에 걸쳐 있는 경우
+            if (!(response.endTime < startTime || response.startTime > windowEnd)) {
+                count++;
             }
         }
 
-        return maxCount.peek();
-    }
-
-    private static int changeTimeToInteger(String startTime) {
-        String[] split = startTime.split(":");
-        return Integer.parseInt(split[0]) * 3600 + Integer.parseInt(split[1]) * 60 + Integer.parseInt(split[2].substring(0,2));
+        return count;
     }
 
     private static Response parse(String line) {
-        try{
-            String[] split = line.split(" ");
-            String stringDate = split[0];
-            String stringEndTime = split[1];
+        try {
+            String[] parts = line.split(" ");
+            String dateTime = parts[0] + " " + parts[1]; // "2016-09-15 20:59:57.421"
+            String durationStr = parts[2].replace("s", ""); // "2.0s" -> "2.0"
 
-            // 시간 문자열과 시간 차이를 분리
-            String timeString = line.substring(11, 23); // "20:59:57.421"
-            String durationString = line.substring(24); // "0.351s"
+            // 종료 시간 파싱
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+            Date endDate = sdf.parse(dateTime);
+            long endTime = endDate.getTime();
 
-            // 시간 문자열을 Date 객체로 변환
-            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss.SSS");
-            Date date = timeFormat.parse(timeString);
+            // 처리 시간(ms) 계산
+            double duration = Double.parseDouble(durationStr);
+            long processingTime = (long) (duration * 1000);
 
-            // BigDecimal로 추가 시간을 정확히 처리
-            BigDecimal additionalSeconds = new BigDecimal(durationString.replace("s", ""));
-            long additionalMillis = additionalSeconds.multiply(BigDecimal.valueOf(1000)).longValue();
+            // 시작 시간 계산
+            long startTime = endTime - processingTime + 1; // 처리 시간을 포함하므로 +1
 
-            // 현재 시간에 추가된 시간을 더함 (처리 시간이 포함되도록)
-            long newTimeMillis = date.getTime() - additionalMillis;
-
-            // 새로운 시간 계산
-            Date newDate = new Date(newTimeMillis + (long) 0.001);
-
-            // 새로운 시간 출력
-            String stringStartTime = timeFormat.format(newDate);
-
-            return new Response(stringDate, stringStartTime, stringEndTime);
-        } catch (ParseException e){
+            return new Response(startTime, endTime);
+        } catch (ParseException e) {
             e.printStackTrace();
             return null;
         }
