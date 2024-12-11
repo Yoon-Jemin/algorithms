@@ -3,22 +3,26 @@ package leetcode.dfs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BinaryTreeInorderTraversal {
+public class isValidBST {
 
-    static List<Integer> answer;
-    public List<Integer> inorderTraversal(TreeNode root) {
+    public static List<Integer> answer;
+    public boolean isValidBST(TreeNode root) {
         answer = new ArrayList<>();
-        InOrder(root);
-        return answer;
+        PreOrder(root);
+
+        for (int i = 0; i < answer.size() - 1; i++) {
+            if (answer.get(i) > answer.get(i + 1)) return false;
+        }
+
+        return true;
     }
 
-    private void InOrder(TreeNode now) {
-        if (now == null) {
-            return;
-        }
-        InOrder(now.left);
-        answer.add(now.val);
-        InOrder(now.right);
+    private static void PreOrder(TreeNode root) {
+        if( root == null) return;
+
+        PreOrder(root.left);
+        answer.add(root.val);
+        PreOrder(root.right);
     }
 
     public static class TreeNode {
