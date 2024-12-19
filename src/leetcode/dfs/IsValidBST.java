@@ -3,7 +3,7 @@ package leetcode.dfs;
 import java.util.ArrayList;
 import java.util.List;
 
-public class isValidBST {
+public class IsValidBST {
 
     public static List<Integer> answer;
     public boolean isValidBST(TreeNode root) {
