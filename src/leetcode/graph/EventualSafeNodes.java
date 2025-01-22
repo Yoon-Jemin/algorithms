@@ -2,7 +2,7 @@ package leetcode.graph;
 
 import java.util.*;
 
-public class eventualSafeNodes {
+public class EventualSafeNodes {
 
     public static void main(String[] args) {
 //        int[][] graph = {{1,2,3,4}, {1,2}, {3,4}, {0,4}, {}};
