@@ -1,4 +1,4 @@
-package leetcode.unionfind;
+package leetcode.graph;
 
 import java.util.LinkedList;
 import java.util.Queue;
