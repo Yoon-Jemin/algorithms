@@ -1,4 +1,4 @@
-package leetcode.unionfind;
+package leetcode.dfs;
 
 public class MaxAreaOfIsland {
 
