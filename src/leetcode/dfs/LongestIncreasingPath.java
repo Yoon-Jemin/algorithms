@@ -1,4 +1,4 @@
-package leetcode.graph;
+package leetcode.dfs;
 
 public class LongestIncreasingPath {
 
