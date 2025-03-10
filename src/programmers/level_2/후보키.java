@@ -40,7 +40,7 @@ public class 후보키 {
         for (String[] row : relation) {
             StringBuilder key = new StringBuilder();
             for (int i = 0; i < row.length; i++) {
-                if ((subset & (1 << i)) != 0) key.append(row[i]).append(",");
+                if ((subset & (1 << i)) != 0) key.append(row[i]).append(",");   // 후보키 포함
             }
 
             if (uniqueRows.contains(key.toString())) return false;
