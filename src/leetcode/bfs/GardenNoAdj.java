@@ -1,4 +1,4 @@
-package leetcode.graph;
+package leetcode.bfs;
 
 import java.util.*;
 
