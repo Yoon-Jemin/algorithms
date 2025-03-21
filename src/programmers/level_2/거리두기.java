@@ -64,8 +64,6 @@ public class 거리두기 {
                             if (place[i - 1].substring(j,j+1).equals("O") || place[i].substring(j-1,j).equals("O")) isGood = false;
                         }
                     }
-
-
                 }
 
             }
