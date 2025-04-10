@@ -1,6 +1,5 @@
-package baekjoon.바킹독;
+package baekjoon.바킹독.그래프;
 
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Scanner;
