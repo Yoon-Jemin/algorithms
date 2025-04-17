@@ -1,4 +1,4 @@
-package baekjoon.바킹독.백트래킹;
+package baekjoon.백트래킹;
 
 import java.util.ArrayList;
 import java.util.Scanner;

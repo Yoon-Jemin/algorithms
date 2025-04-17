@@ -1,10 +1,9 @@
-package baekjoon.바킹독.그래프;
+package baekjoon.그래프;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.PriorityQueue;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
 public class 미로탐색 {
