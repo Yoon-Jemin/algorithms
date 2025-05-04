@@ -36,7 +36,7 @@ public class 달여행 {
         }
 
         for (int j = 0; j < m; j++) {
-            for (int d= 0; d < 3; d++) {
+            for (int d = 0; d < 3; d++) {
                 dp[0][j][d] = map[0][j];
             }
         }
@@ -49,7 +49,9 @@ public class 달여행 {
                     if (prevCol < 0 || prevCol >= m) continue;
                     for (int prevD = 0; prevD < 3; prevD++) {
                         if (d == prevD) continue;
-                        dp[i][j][d] = Math.min(dp[i][j][d], map[i][j] + dp[i-1][prevCol][prevD]);
+                        if (dp[i-1][prevCol][prevD] != Integer.MAX_VALUE) {
+                            dp[i][j][d] = Math.min(dp[i][j][d], map[i][j] + dp[i-1][prevCol][prevD]);
+                        }
                     }
                 }
             }
