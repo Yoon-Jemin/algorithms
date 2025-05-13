@@ -3,7 +3,7 @@ package baekjoon.그리디;
 import java.util.Scanner;
 import java.util.Stack;
 
-public class 동전0 {
+public class 동전 {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
