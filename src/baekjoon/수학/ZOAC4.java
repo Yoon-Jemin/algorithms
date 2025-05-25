@@ -1,4 +1,4 @@
-package baekjoon.그래프;
+package baekjoon.수학;
 
 import java.util.Scanner;
 
