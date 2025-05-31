@@ -9,7 +9,7 @@ public class 피보나치수3 {
         Scanner sc = new Scanner(System.in);
 
         long n = sc.nextLong();
-        if (n == 1) {
+        if (n == 0) {
             System.out.println(0);
             return;
         }
