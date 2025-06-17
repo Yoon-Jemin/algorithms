@@ -26,7 +26,7 @@ public class 열형강호 {
             graph[i] = new ArrayList<>();
         }
 
-        for (int i = 1; i <= M; i++) {
+        for (int i = 1; i <= N; i++) {
             st = new StringTokenizer(br.readLine());
             int taskCount = Integer.parseInt(st.nextToken());
             for (int j = 0; j < taskCount; j++) {
