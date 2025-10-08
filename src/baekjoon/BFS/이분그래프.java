@@ -1,4 +1,4 @@
-package baekjoon.유니온파인드;
+package baekjoon.BFS;
 
 import java.io.BufferedReader;
 import java.io.IOException;
