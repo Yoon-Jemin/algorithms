@@ -72,7 +72,6 @@ public class 가르침 {
                     break;
                 }
             }
-
             if (canRead) count++;
         }
 
